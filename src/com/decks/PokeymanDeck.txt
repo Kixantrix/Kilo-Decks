@@ -1,0 +1,12 @@
+Charizard|160|blue|
+Charizard|160|blue| 
+Squirtle|60|orange|
+Squirtle|60|orange|
+Blue|60|orange|
+Pokechu|80|diamonds|
+Onyx|150|diamonds|
+Pikacapybara|100|diamonds|
+Capychu|100|diamonds|
+Megachu[200|diamonds|
+Scrapple|50|orange|
+Dusknox|170|blue|
