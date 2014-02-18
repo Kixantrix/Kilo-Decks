@@ -128,7 +128,6 @@ public class AndroidGraphics implements Graphics {
          Bitmap bitmap = ((AndroidImage) Image).bitmap;
          
          Matrix matrix = new Matrix();
-         rotation += 10;
          float px = width/2;
          float py = height/2;
          matrix.postTranslate(-bitmap.getWidth()/2, -bitmap.getHeight()/2);
