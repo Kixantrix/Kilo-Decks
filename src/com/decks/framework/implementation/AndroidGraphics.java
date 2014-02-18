@@ -9,6 +9,7 @@ import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
@@ -108,6 +109,35 @@ public class AndroidGraphics implements Graphics {
     	
     }
     
+    // Draws image with new transformed size and rotation
+    // Rotation is rotation in degrees from upright
+    public void drawTransformedImage(Image Image, int x, int y, int width, int height,
+    		int srcX, int srcY, int srcWidth, int srcHeight, float rotation) {
+    	
+      	 srcRect.left = srcX;
+         srcRect.top = srcY;
+         srcRect.right = srcX + srcWidth;
+         srcRect.bottom = srcY + srcHeight;
+           
+           
+         dstRect.left = x;
+         dstRect.top = y;
+         dstRect.right = x + width;
+         dstRect.bottom = y + height;
+         
+         Bitmap bitmap = ((AndroidImage) Image).bitmap;
+         
+         Matrix matrix = new Matrix();
+         rotation += 10;
+         float px = width/2;
+         float py = height/2;
+         matrix.postTranslate(-bitmap.getWidth()/2, -bitmap.getHeight()/2);
+         matrix.postRotate(rotation);
+         matrix.postTranslate(px, py);
+         canvas.drawBitmap(bitmap, matrix, null);
+
+           
+    }
 
     public void drawImage(Image Image, int x, int y, int srcX, int srcY,
             int srcWidth, int srcHeight) {
@@ -134,7 +164,7 @@ public class AndroidGraphics implements Graphics {
     public void drawScaledImage(Image Image, int x, int y, int width, int height, int srcX, int srcY, int srcWidth, int srcHeight){
     	
     	
-   	 srcRect.left = srcX;
+   	 	srcRect.left = srcX;
         srcRect.top = srcY;
         srcRect.right = srcX + srcWidth;
         srcRect.bottom = srcY + srcHeight;
