@@ -61,14 +61,12 @@ public class SampleGame extends AndroidGame {
 	public void onResume() {
 		super.onResume();
 
-		Assets.theme.play();
 
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		Assets.theme.pause();
 
 	}
 	
