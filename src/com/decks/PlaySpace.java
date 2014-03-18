@@ -2,34 +2,51 @@ package com.decks;
 import java.awt.*;
 import java.util.*;
 
+import com.decks.framework.Graphics;
+import com.decks.framework.implementation.AndroidGraphics;
+
 // Cards in play on the board
 public class PlaySpace {
-	private Map<String, Pile> played; // Map of the cards each player has played
+	
+	private Map<String, Pile> inPlay; // Map of the cards each player has in play, but not in the played pile
+	private Pile played; // All cards that are not in play currently, but have been played. 
+	public int maxInPlay;
 	
 	// new empty PlaySpace
 	// has piles for each player mapped to the player's name
-	public PlaySpace(Set<String> players) {
-		played = new TreeMap<String, Pile>();
-		for(String player: players) {
-			played.put(player, new Pile(true, 0, 0, players));
+	public PlaySpace(Set<String> players, int maxInPlay) {
+		inPlay = new TreeMap<String, Pile>();
+		for(String player: players) { // Generates empty piles for inPlay
+			inPlay.put(player, new Pile(true, 0, 0, players));
 		}
+		played = new Pile(true, 0, 0, players); // Initiates empty pile of cards which have been played
+		this.maxInPlay = maxInPlay;
 	}
 	
-	// Adds a pile from a user to the PlaySpace tagged by their name 
+	// Adds a pile from a user to the PlaySpace tagged by their name, and 
 	public void play(String player, Pile toAdd) {
-		played.get(player).addAll(toAdd);
+		inPlay.get(player).addAll(toAdd);
+		/*
+		if(maxInPlay != -1) {
+			ArrayList<String> temp = inPlay.keySet();
+			int i = maxInPlay;
+			while(!inPlay.isEmpty() && i <= 0) {
+				inPlay.remove(key)
+			}
+		}
+		*/
 	}
 	
-	// Removes the pile played by a user from the PlaySpace and returns it
+	// Removes the pile inPlay by a user from the PlaySpace and returns it
 	public Pile remove(String player) {
-		return played.get(player).removeAll();
+		return inPlay.get(player).removeAll();
 	}
 	
-	// Removes all of the piles played by all users from the PlaySpace and returns it as a single
+	// Removes all of the piles inPlay by all users from the PlaySpace and returns it as a single
 	// Pile 
 	public Pile removeAll() {
 		Pile temp = new Pile(false, 0, 0, null);
-		for(String player: played.keySet()) {
+		for(String player: inPlay.keySet()) {
 			temp.addAll(remove(player));
 		}
 		return temp;
@@ -37,7 +54,12 @@ public class PlaySpace {
    
    // Simple toString method
    public String toString() {
-      return played.toString();
+      return inPlay.toString() + played.toString();
+   }
+   
+   // Draws the PlaySpace on the android canvas 
+   public void draw(AndroidGraphics g) {
+	   
    }
 
 }
