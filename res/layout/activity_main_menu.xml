@@ -4,5 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.decks.MainMenuActivity"
-    tools:ignore="MergeRootFrame" />
+    tools:ignore="MergeRootFrame" >
+
+    <Button
+        android:id="@+id/Create Game"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_game" />
+   
+</FrameLayout>
 
