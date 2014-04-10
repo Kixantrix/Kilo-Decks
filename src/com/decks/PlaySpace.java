@@ -59,7 +59,10 @@ public class PlaySpace {
    
    // Draws the PlaySpace on the android canvas 
    public void draw(AndroidGraphics g) {
-	   
+		Set<String> piles = inPlay.keySet();
+		for(String key: piles) {
+			inPlay.get(key).draw(g);
+		}
    }
 
 }

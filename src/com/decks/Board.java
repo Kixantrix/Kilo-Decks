@@ -1,7 +1,8 @@
 package com.decks;
 
 import java.util.*;
-import java.util.TreeSet;
+
+import com.decks.framework.Graphics;
 
 // defines the card on the board that are not directly related to any played in particular place
 public class Board {
@@ -33,6 +34,14 @@ public class Board {
 	// Returns a pile of cards of given name and removes them from the board
 	public Pile removePile(String name) {
 		return boardPiles.remove(name);
+	}
+	
+	// Draws all items on board
+	public void draw(Graphics g) {
+		Set<String> piles = boardPiles.keySet();
+		for(String key: piles) {
+			boardPiles.get(key).draw(g);
+		}
 	}
 
 }

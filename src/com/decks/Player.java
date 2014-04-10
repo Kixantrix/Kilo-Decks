@@ -10,8 +10,10 @@ import com.decks.framework.implementation.AndroidGraphics;
 
 
 public class Player {
-	public static final int CARDHEIGHT = 50; // Height of a card as seen by player
-	public static final int CARDWIDTH  = 50; // Width of a card as seen by player
+	public static final int CARDHEIGHT    = 50;  // Height of a card as seen by player
+	public static final int CARDWIDTH     = 50;  // Width of a card as seen by player
+	public static final int SRCCARDHEIGHT = 300; // Source width of cards
+	public static final int SRCCARDWIDTH  = 300; // South height of cards
 	
 	public Pile hand;			 // player's hand, accessible outside 
 	private String name;		 // name of player
@@ -78,10 +80,10 @@ public class Player {
 	}
 	
 	// draws the representation of the player in game, either as a version others see, or as the
-	// version the player sees of themself. 
+	// version the player sees of themselves. 
 	public void draw(AndroidGraphics g, int viewX, int viewY) {
 		if(isMainPlayer) {
-			drawHand(g);
+			drawHand(g, viewX);
 			// logic for drawing other info in default position
 		} else {
 			// draw information as others would see it
@@ -91,12 +93,13 @@ public class Player {
 	// Draws the cards in the hand as they are seen 
 	public void drawHand(AndroidGraphics g, int viewX) {
 		ArrayList<Card> playerHand = hand.getPile();
-		for(int i = 0; i < playerHand.size(); i++) {
+		int playerHandSize = playerHand.size();
+		for(int i = 0; i < playerHandSize; i++) {
 			float rotation = 90; // rotation of card in hand
 			int changeX = x;     // x position of card in hand
 			int changeY = y;     // y position of card in hand
 			g.drawTransformedImage(playerHand.get(i).getImage(), x, y, CARDWIDTH, CARDHEIGHT,
-					1, 1, CARDWIDTH, CARDHEIGHT, rotation);
+					0, 0, SRCCARDWIDTH, SRCCARDHEIGHT, rotation);
 		}
 	}
 	
