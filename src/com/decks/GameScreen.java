@@ -1,6 +1,8 @@
 package com.decks;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -14,6 +16,12 @@ public class GameScreen extends Screen {
     enum GameState {
         Ready, Running, Paused, GameOver
     }
+    
+	private Set<Player> players;				 // All players in game
+	private ArrayList<Deck> decks; 				 // All decks in play
+	private ArrayList<DiscardPile> discardPiles; // All DiscardPiles in play
+	private PlaySpace playSpace; 				 // PlaySpace where players play cards
+	private Board board; 						 // Board where players cannot play cards
 
     GameState state = GameState.Ready;
 
@@ -23,9 +31,15 @@ public class GameScreen extends Screen {
     int livesLeft = 1;
     Paint paint;
 
-    public GameScreen(Game game) {
+    public GameScreen(Game game, Set<Player> players, PlaySpace playSpace, Board board, ArrayList<DiscardPile> discardPiles,
+    					ArrayList<Deck> decks) {
         super(game);
-
+        this.board        = board;
+        this.players      = players;
+        this.decks        = decks;
+        this.discardPiles = discardPiles;
+        this.playSpace    = playSpace;
+        
         // Initialize game objects here
 
         // Defining a paint object
@@ -144,7 +158,8 @@ public class GameScreen extends Screen {
     @Override
     public void paint(float deltaTime) {
         Graphics g = game.getGraphics();
-
+        
+        
         // First draw the game elements.
 
         // Example:
