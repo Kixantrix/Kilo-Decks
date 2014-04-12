@@ -4,14 +4,19 @@ import java.util.*;
 import java.awt.*;
 import java.io.*;
 
-//comments bro
+import com.decks.framework.Graphics;
+import com.decks.framework.Image;
+
+// the main data structure--holds cards in a sort of ArrayList which has properties for being drawn
+// as well as who can look at the contents of the pile.
 public class Pile {
 	
-	private boolean topVisible; // if top card is visible
-	private ArrayList<Card> pile; // data stored
-	private int centerX; // x coordinate of center of pile
-	private int centerY; // y coordinate of center of pile
+	private boolean topVisible;         // if top card is visible
+	private ArrayList<Card> pile;       // data stored
+	private int centerX;                // x coordinate of center of pile
+	private int centerY;                // y coordinate of center of pile
 	private Set<String> allowedViewers; // set of all people allowed to see cards
+	private Image cardBack;             // not sure if this is where we want it 
 	
 	public Pile(boolean topVisible, int x, int y, Set<String> allowedViewers) {
 		pile = new ArrayList<Card>(); // contents of the pile
@@ -134,6 +139,16 @@ public class Pile {
 		// Returns true if pile is empty
 		public boolean isEmpty() {
 			return pile.isEmpty();
+		}
+		
+		// Draws a pile of cards with top card showing or card back
+		public void draw(Graphics g) {
+			if(topVisible) {
+				Card temp = pile.get(0);
+				g.drawImage(temp.getImage(), centerX, centerY);
+			} else {
+				g.drawImage(cardBack, centerX, centerY); // cardback doesn't exist yet, neither is it initialized
+			}
 		}
 		
 }
