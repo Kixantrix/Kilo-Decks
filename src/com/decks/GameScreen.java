@@ -11,6 +11,7 @@ import com.decks.framework.Game;
 import com.decks.framework.Graphics;
 import com.decks.framework.Input.TouchEvent;
 import com.decks.framework.Screen;
+import com.decks.framework.implementation.AndroidGraphics;
 
 public class GameScreen extends Screen {
     enum GameState {
@@ -157,14 +158,20 @@ public class GameScreen extends Screen {
 
     @Override
     public void paint(float deltaTime) {
-        Graphics g = game.getGraphics();
+        AndroidGraphics g = (AndroidGraphics) game.getGraphics();
         
-        
-        // First draw the game elements.
-
-        // Example:
-        // g.drawImage(Assets.background, 0, 0);
-        // g.drawImage(Assets.character, characterX, characterY);
+        //drawing elements in game
+        playSpace.draw(g);
+        board.draw(g);
+        for(Player player: players) {
+        	player.draw(g, viewX, viewY);
+        }
+        for(Deck deck: decks) {
+        	deck.draw(g);
+        }
+        for(DiscardPile discardPile: discardPiles) {
+        	discardPile.draw(g);
+        }
 
         // Secondly, draw the UI above the game elements.
         if (state == GameState.Ready)
